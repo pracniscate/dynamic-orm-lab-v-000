@@ -62,13 +62,12 @@ class InteractiveRecord
 
   def self.find_by_name(name)
     # executes the SQL to find a row by name
-    binding.pry
-    sql = "SELECT * FROM #{self.table_name} WHERE name = #{name}"
-    DB[:conn].execute(sql)
+    sql = "SELECT * FROM #{self.table_name} WHERE name = ?"
+    DB[:conn].execute(sql, name)
   end
 
-  def self.find_by(attribute_hash)
-    sql = "SELECT * FROM #{self.table_name} WHERE #{attribute_hash.keys.first.to_s}= '#{attribute_hash[attribute_hash.keys.first]}'"
+  def self.find_by(options)
+    sql = "SELECT * FROM #{self.table_name} WHERE #{options.keys.first.to_s}= '#{options[options.keys.first]}'"
     DB[:conn].execute(sql)
   end
 
